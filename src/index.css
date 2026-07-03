@@ -1,610 +1,243 @@
-/* Fungal VF Font */
-@font-face {
-  font-family: 'FungalVF';
-  src: url('/src/fonts/FungalVF.woff') format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
+/* ============================================================
+   9413 SOPHIA AVENUE — DESIGN TOKENS (CONSOLIDATED)
+   ============================================================ */
 
-/* CSS Variables for animations */
 :root {
-  --scroll-progress: 0;
+  --color-bg: #ffffff;
+  --color-text: #000000;
+  --color-accent: #DAB997;
+  --color-spore: #ffffff;
+  --color-nav-bg: #ffffff;
+
+  --font-main: 'Times New Roman', Times, serif;
+  --font-size-base: 16px;
+
+  --pad: 8px;
+  --pad-mobile: 8px;
+  --nav-height: 56px;
 }
 
-/* Base Typography */
+/* ============================================================
+   RESET & GLOBAL BASE
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body, html, h1, h2, h3, h4, p, span, a, button, div {
+  font-family: var(--font-main) !important;
+  font-size: var(--font-size-base) !important;
+  font-weight: normal !important;
+  color: var(--color-text) !important;
+  line-height: 1.45;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
 body {
-  margin: 0;
-  padding: 0;
-  font-family: Times, 'Times New Roman', serif;
-  font-size: 1rem;
+  background: var(--color-bg) !important;
+  overflow-x: hidden;
 }
 
-p {
-  font-size: 1rem;
-  font-family: Times, 'Times New Roman', serif;
+a { text-decoration: none; }
+button { background: none; border: none; cursor: pointer; padding: 0; }
+img { display: block; max-width: 100%; }
+
+.app-container { min-height: 100vh; }
+
+/* ============================================================
+   NAV
+   ============================================================ */
+
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+  padding: 0 var(--pad); min-height: var(--nav-height);
+  align-content: center;
+  text-align: left;
+  background: var(--color-nav-bg);
 }
 
-h1 {
-  font-size: 2rem;
-  font-family: Times, 'Times New Roman', serif;
-  margin: 0;
-  font-weight: 400;
+.nav-sentence { text-align: left; align-items: center; line-height: 2rem; cursor: pointer; }
+.nav-arrow { display: flex; align-items: center; justify-content: flex-end; gap: 10px; text-wrap: keep-all; }
+.info-read-toggle { cursor: pointer; text-decoration: underline; }
+
+/* ============================================================
+   STRUCTURE & WIDGETS
+   ============================================================ */
+
+.inline-weather {
+  font-family: var(--font-main) !important;
+  font-size: var(--font-size-base) !important;
+  color: var(--color-text) !important;
+  display: inline;
 }
 
-h2 {
-  font-size: 1.5rem;
-  font-family: Times, 'Times New Roman', serif;
-  margin: 0;
-  font-weight: 400;
+.page { padding-top: var(--nav-height); min-height: 100vh; overflow: hidden; }
+
+.loading-screen {
+  position: fixed; inset: 0; background: var(--color-bg);
+  display: flex; align-items: center; justify-content: center; z-index: 999;
 }
 
-/* Navigation Text Class */
-.navigation-text {
-  font-size: 1rem;
-  margin: 0;
-}
+.loading-screen.italic { font-style: italic; }
 
-.navigation-text:hover {
-  font-style: italic;
-  cursor: pointer;
-}
+/* ============================================================
+   HOME PAGE
+   ============================================================ */
 
-.navigation-text.active {
-  font-style: italic;
-}
+.home-wrap { position: relative; width: 100%; height: calc(100vh - var(--nav-height)); overflow: hidden; }
+.spore-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-/* Scroll-Tied Fungal VF Animation for Publication/Film/Archive */
-/* EDIT THESE VALUES to change scroll animation behavior */
-.sofia-nav-scroll {
-  font-family: 'FungalVF', Times, serif;
-  font-variation-settings: 
-    "grow" calc(100 + var(--scroll-progress) * 900),
-    "THCK" calc(var(--scroll-progress) * 100);
-  transition: font-variation-settings 0.1s ease-out;
-  /* 
-    CURRENT BEHAVIOR:
-    - grow: 100 (at top) → 1000 (at bottom)
-    - THCK: 0 (at top) → 100 (at bottom)
-    
-    TO EDIT THE RANGE:
-    Change "100 + var(--scroll-progress) * 900" to adjust grow range
-    Example: "500 + var(--scroll-progress) * 500" = 500→1000
-    
-    Change "var(--scroll-progress) * 100" to adjust THCK range
-    Example: "50 + var(--scroll-progress) * 50" = 50→100
-  */
-}
+/* ============================================================
+   FILM PAGE
+   ============================================================ */
 
-/* Publication/Film specific scroll animations */
-.sofia-nav-scroll.publication,
-.sofia-nav-scroll.film {
-  font-family: 'FungalVF', Times, serif;
-  /* Inherits from .sofia-nav-scroll */
-}
+.film-container { padding: var(--pad); overflow-y: auto; height: calc(100vh - var(--nav-height)); }
+.film-blocks { width: 100%; display: flex; flex-direction: column; gap: 32px; }
+.film-block-img-wrap { position: relative; cursor: pointer; }
+.film-block-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
 
-/* Archive specific scroll animations */
-.sofia-nav-scroll.archive {
-  font-family: 'FungalVF', Times, serif;
-  /* Inherits from .sofia-nav-scroll */
-  /* 
-    EDIT NOTE: This is now SCROLL-TIED (not static)
-    The animation changes as you scroll down the page
-    To make it static, replace with:
-    font-variation-settings: "grow" 500, "THCK" 60;
-  */
-}
+/* ============================================================
+   PUBLICATIONS PAGE
+   ============================================================ */
 
-.heading-sofia.serif.archive {
-  font-family: 'FungalVF', Times, serif;
-  font-variation-settings: 
-    "grow" calc(100 + var(--scroll-progress) * 900),
-    "THCK" calc(var(--scroll-progress) * 100);
-}
-
-.small-sofia.serif.archive {
-  font-family: 'FungalVF', Times, serif;
-  font-variation-settings: 
-    "grow" calc(100 + var(--scroll-progress) * 900),
-    "THCK" calc(var(--scroll-progress) * 100);
-}
-
-/* Item Row Styling */
-.item-row {
-  height: 300px;
-  width: 100vw;
+.publications-wrapper {
   display: flex;
-  border-bottom: 1px solid black;
-  overflow: hidden;
-  transition: height 0.3s ease;
+  gap: var(--pad);
+  padding: var(--pad);
+  overflow-y: auto;
+  height: calc(100vh - var(--nav-height));
 }
 
-.item-row.expanded {
-  height: 100vh;
+.pub-column { flex: 1; display: flex; flex-direction: column; gap: var(--pad); }
+.pub-block { cursor: pointer; line-height: 0; }
+.pub-block img { width: 100%; }
+
+/* ============================================================
+   ARCHIVE PAGE
+   ============================================================ */
+
+.archive-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--pad); padding: var(--pad); overflow-y: auto; height: calc(100vh - var(--nav-height)); }
+.archive-block { display: block; line-height: 0; cursor: pointer; }
+.archive-block img { width: 100%; }
+
+/* ============================================================
+   ITEM TEXT
+   ============================================================ */
+
+.item-text-container { padding: 8px 0 0; overflow: hidden; white-space: nowrap; }
+.item-text-container.scrollable .item-text-content { display: inline-block; animation: scroll-text 20s linear infinite; }
+.item-text-content { display: inline-block; }
+
+@keyframes scroll-text {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
-.item-image {
-  width: 50vw;
-  height: 100%;
-  object-fit: cover;
-  border-right: 1px solid black;
-  cursor: pointer;
-  transition: width 0.3s ease;
+/* ============================================================
+   MODALS, LIGHTBOX & VIDEO
+   ============================================================ */
+
+.video-modal, .lightbox {
+  position: fixed; inset: 0; z-index: 200; background: var(--color-bg);
+  display: flex; align-items: center; justify-content: center; padding: var(--pad);
 }
 
-.item-row.expanded .item-image {
-  width: 100vw;
-}
+.video-modal-inner { position: relative; width: 100%; max-width: 960px; }
+.video-modal-close, .lightbox-close { position: absolute; top: var(--pad); right: var(--pad); cursor: pointer; z-index: 202; }
+.video-embed-wrapper { position: relative; width: 100%; aspect-ratio: 16/9; }
+.video-embed-wrapper iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
 
-.item-content {
-  width: 50vw;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-start;
-  gap: 1rem;
-  transition: opacity 0.3s ease;
-}
-
-.item-row.expanded .item-content {
-  opacity: 0;
-  pointer-events: none;
-}
-
-/* Display Block for Most Recent */
-.display-block {
-  width: 100vw;
-  height: 120vh;
-  position: relative;
-  overflow: hidden;
-}
-
-.display-block img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.display-overlay {
+.lightbox-top-left {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom:0;
-  height: 30%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid black;
+  top: var(--pad);
+  left: var(--pad);
+  z-index: 201;
+  max-width: min(50%, 480px);
 }
 
-.display-overlay-inverted {
-  position: absolute;
-  background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0));
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 24px;
-}
+.lightbox-inner { display: flex; gap: var(--pad); width: 100%; max-width: 1100px; align-items: flex-start; }
+.lightbox-img-wrap { flex: 1; display: flex; align-items: center; justify-content: center; max-height: 80vh; }
+.lightbox-img-wrap img { max-height: 80vh; max-width: 100%; object-fit: contain; }
 
-/* Display Block Text */
-.display-text {
-  font-size: 2rem;
-  margin: 0.5rem 0;
-  font-weight: 400;
-  position: relative;
-  z-index: 2; /* above the gradient */
-}
+/* ============================================================
+   INFO OVERLAY
+   ============================================================ */
 
-.display-category {
-  font-size: 1.5rem;
-  margin: 0;
-  position: relative;
-  z-index: 2; /* above the gradient */
-}
-
-/* Show More Button */
-.show-more-button {
-  padding: 1rem 3rem;
-  background: #E8EBFF;
-  cursor: pointer;
-  font-family: Times, serif;
-  font-size: 1rem;
-  position: relative;
-  overflow: hidden;
-  border: none;
-  z-index: 2;
-  text-decoration: none;
-  color: black;
-}
-
-.show-more-button:hover::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0;
-  background: linear-gradient(to right, #E8EBFF, transparent);
-  animation: loadProgress 1s ease-out forwards;
-}
-
-@keyframes loadProgress {
-  to { width: 100%; }
-}
-
-/* Grid Layout */
-.grid-3col {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.grid-3col img {
-  width: 19vw;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-  border-radius: 20px;
-}
-
-
-/* Choreographed Deconstruction Animation - TIME SENSITIVE */
-/* EDIT THESE VALUES to change the animation timing and variation settings */
-.choreographed-animation {
-  font-family: 'FungalVF', Times, serif;
-  animation: choreographedGrow 8s ease-in-out forwards;
-  /* 
-    EDIT ANIMATION DURATION: Change "8s" to adjust speed (e.g., "5s", "10s")
-    EDIT TIMING FUNCTION: Change "ease-in-out" to "linear", "ease-in", "ease-out"
-  */
-}
-
-@keyframes choreographedGrow {
-  /* EDIT THESE KEYFRAMES to change the animation path */
-  0% {
-    font-variation-settings: "grow" 100, "THCK" 10;
-  }
-  10% {
-    font-variation-settings: "grow" 1000, "THCK" 1000;
-  }
-  50% {
-    font-variation-settings: "grow" 300, "THCK" 400;
-  }
-  75% {
-    font-variation-settings: "grow" 800, "THCK" 300;
-  }
-  100% {
-    font-variation-settings: "grow" 500, "THCK" 60;
-  }
-  /* 
-    EDIT grow: Range 100-1000
-    EDIT THCK: Range 0-100
-  */
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .item-row {
-    flex-direction: column;
-    height: auto;
-  }
-
-  .item-row.expanded {
-    width:100vw;
-    height: auto;
-
-  }
-  .item-row.expanded .item-content {
-  opacity: 100;
-  pointer-events: none;
-  }
-  
-  .item-image {
-    width: 100vw;
-    height: auto;
-    border-right: none;
-  }
-
-
-  
-  .item-content {
-    width: 100vw;
-    padding: 2rem;
-  }
-
-  .grid-3col {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .display-block {
-    height: 80vh;
-  }
-
-  .display-overlay-inverted {
-    padding: none;
-  }
-
-  .contact-button {
-    top: 0.5rem;
-
-  }
-
-
-
-
-
-  .grid-3col {
-    grid-template-columns: 1fr;
-  }
-  
-  h1 {
-    font-size: 1.5rem;
-  }
-  
-  h2 {
-    font-size: 1.25rem;
-  }
-}
-
-/* Hero Section */
-.hero-section {
-  height: 60vh;
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: last baseline;
-  justify-content: center;
-}
-
-.hero-text {
-  font-size: 3rem;
-  max-width: 65%;
-  text-align: center;
-  z-index: 2;
-}
-
-.hero-bg {
-  position: absolute;
-  z-index: 1;
+.info-overlay-panel {
+  position: fixed;
   inset: 0;
-  background-size: cover;
-  background-position: center;
-
-  -webkit-mask-image: linear-gradient(
-    to top,
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0.5) 20%,
-    rgba(0,0,0,1) 30%
-  );
-  mask-image: linear-gradient(
-    to top,
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,0.5) 20%,
-    rgba(0,0,0,1) 30%
-  );
-
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-}
-
-/* Footer Hero */
-.footer-hero {
-  height: 60vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  text-align: center;
-}
-
-.footer-display {
-  height: auto;
-  max-height: 50vh;
-}
-
-
-/* Sticky Navigation */
-.sticky-nav {
-  position: sticky;
-  top: 0;
-  background: white;
-  z-index: 100;
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  padding: 1rem 0.5rem 0.5rem 0.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-
-.nav-spacer {
-  width: 100px;
-}
-
-/* Contact Button */
-.contact-button {
-  position: fixed;
-  top: 0.5rem;
-  right: 0.5rem;
-  z-index: 200;
-  background: white;
-  border: 0px solid black;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  font-family: Times, serif;
-  font-size: 1rem;
-}
-
-.contact-button:hover {
-  background: #f0f0f0;
-}/* Contact Modal Styling */
-.contact-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
   z-index: 150;
+  background: var(--color-bg);
+  overflow-y: auto;
+  padding-top: var(--nav-height);
+}
+
+.info-page {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: calc(var(--pad) * 2);
+  padding: var(--pad);
+  min-height: calc(100vh - var(--nav-height));
+}
+
+.info-col-left, .info-col-right {
   display: flex;
   flex-direction: column;
+  gap: calc(var(--pad) * 3);
+}
+
+.info-heading {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: scroll;
-  padding: 2rem;
-  overflow-y: scroll;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
-.contact-modal h2 {
-  font-size: 2rem;
-  margin-bottom: 2rem;
+.heading-svg { width: 1em; height: auto; display: inline-block; }
+
+.info-section p { margin-bottom: 1em; }
+
+.statement-text.collapsed {
+  max-height: 8em;
+  overflow: hidden;
 }
 
-/* Contact Table as Link Blocks */
-.contact-table {
-  width: 100%;
-  max-width: 800px;
-  position: fixed;
-  top: 10%;
-  margin-bottom: 3rem;
-  display: flex;
-  flex-direction: column;
-  border-bottom: 0px solid black;
+.read-more-btn { text-decoration: underline; margin-top: 8px; }
+
+.info-team-list { display: flex; flex-direction: column; }
+.info-team-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; padding: 6px 0; }
+
+.contact-link-block {
+  display: block;
+  position: relative;
+  color: inherit;
 }
 
-.contact-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  border-left:1px solid black;
-  border-right:1px solid black;
-  border-bottom:1px solid black;
-  text-decoration: none;
-  color: black;
-  transition: background-color 0.2s ease;
+.contact-link-block h3 { margin-bottom: 8px; }
+
+.hover-contact-ui {
+  position: absolute;
+  top: var(--pad);
+  left: var(--pad);
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.contact-row:hover {
-  font-style: italic;
-}
+.contact-link-block:hover .hover-contact-ui { opacity: 1; }
 
-.contact-role {
-  font-style: italic;
-}
+/* ============================================================
+   MOBILE
+   ============================================================ */
 
-.contact-name {
-  text-align: right;
-}
+@media (max-width: 768px) {
+  .nav { padding: 0 var(--pad-mobile); flex-direction: column; align-items: flex-start; }
+  .nav-arrow { position: fixed; bottom: 12px; left: 12px; }
 
-.contact-table-heading {
-  border-top: none;
-  border-bottom: 1px solid black;
-  text-align: center;
-  margin: none;
-
-}
-
-
-/* Contact Modal Email Links */
-.contact-email-links {
-  display: flex;
-  flex-direction: row;
-  gap: 2rem;
-  width: 100vw;
-  overflow-x: scroll;
-  padding-bottom: 20px;
-}
-
-.contact-email-link {
-  margin-top: 85vh;
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-decoration: none;
-  color: black;
-  min-width: 45vw;
-  background-color: white;
-  border-radius: 20px;
-  padding: 1rem;
-  height: 45vh;
-
-}
-
-.contact-email-link p {
-  font-style: italic;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.contact-email-link img {
-  width: 100%;
-  height: 100%;
-  max-height: 41vh;
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-
-/* Item Content Elements */
-
-.item-title {
-  font-size: 2rem;
-  margin-right: 2rem;
-}
-
-.item-link {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border: 1px solid black;
-  text-decoration: none;
-  color: black;
-  width: fit-content;
-}
-
-.item-link:hover {
-  background: black;
-  color: white;
-}
-
-.item-category {
-  margin: 0;
-}
-
-/* Show More Section */
-.show-more-section {
-  display: flex;
-  justify-content: center;
-  margin-top: -1.5rem;
-}
-
-/* Utility Classes */
-.serif {
-  font-family: Times, 'Times New Roman', serif;
-}
-
-.fungal {
-  font-family: 'FungalVF', Times, serif;
-}
-
-/* Smooth Scrolling */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Loading State */
-.loading {
-  padding: 4rem;
-  text-align: center;
-  font-size: 1rem;
+  .publications-wrapper { flex-direction: column; }
+  .info-page { grid-template-columns: 1fr; }
+  .archive-col { grid-template-columns: 1fr; gap: 0; padding-top: 12px; }
+  .lightbox-inner { flex-direction: column; max-height: 88vh; }
+  .lightbox-top-left { max-width: calc(100% - 32px); }
 }
