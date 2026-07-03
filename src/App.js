@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 // ============================================================
 // CONFIGURATION & ARE.NA CHANNEL SLUGS
@@ -226,14 +226,14 @@ export default function App() {
       });
   }, []);
 
-  const getLightboxItems = () => {
+  const getLightboxItems = useCallback(() => {
     if (view === 'archive') return archiveItems;
     if (view === 'publications') {
       return activeLightboxType === 'chapbooks' ? chapbookItems : pubItems;
     }
     if (view === 'film') return filmItems;
     return [];
-  };
+  }, [view, archiveItems, pubItems, chapbookItems, filmItems, activeLightboxType]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -251,7 +251,7 @@ export default function App() {
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [activeLightboxIndex, archiveItems, pubItems, filmItems, chapbookItems, view, activeLightboxType]);
+  }, [activeLightboxIndex, getLightboxItems]);
 
   useEffect(() => {
     setHoveredBlock(null);
@@ -443,8 +443,8 @@ export default function App() {
                     <a href="https://www.linkedin.com/in/robin-brown-3033555a/" style={{textDecoration: 'none', color: 'inherit'}}><div className="info-team-row"><span>Robin Brown</span><span>Lead Contamination Consulting</span></div></a>
                     <a href="https://www.linkedin.com/in/jenniferlumpkin/" style={{textDecoration: 'none', color: 'inherit'}}><div className="info-team-row"><span>Jennifer Lumpkin</span><span>Lead Field Agronomist</span></div></a>
                     <a href="https://www.linkedin.com/in/indigobishop" style={{textDecoration: 'none', color: 'inherit'}}><div className="info-team-row"><span>Indigo Bishop</span><span>Community Organizing</span></div></a>
-                    <a href="#" style={{textDecoration: 'none', color: 'inherit'}}><div className="info-team-row"><span>Cuyahoga Land Bank</span><span>Project Partner</span></div></a>
-                    <a href="#" style={{textDecoration: 'none', color: 'inherit'}}><div className="info-team-row"><span>Transformative Arts Fund</span><span>Funding</span></div></a>
+                    <div className="info-team-row"><span>Cuyahoga Land Bank</span><span>Project Partner</span></div>
+                    <div className="info-team-row"><span>Transformative Arts Fund</span><span>Funding</span></div>
                     <a href="https://www.harperdaniel.com/" style={{textDecoration: 'none', color: 'inherit'}}><div className="info-team-row"><span>Harper Daniel</span><span>Website</span></div></a>
                   </div>
                 </div>
